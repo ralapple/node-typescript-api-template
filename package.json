@@ -5,10 +5,11 @@
   "main": "src/app.ts",
   "scripts": {
     "build": "npx prisma generate && npx tsc",
-    "start": "yarn node dist/src/app.js",
+    "start": "yarn node dist/app.js",
     "lint": "eslint . --ext .ts",
     "test": "jest",
-    "clean": "rm -rf dist && rm -rf generated"
+    "clean": "rm -rf dist && rm -rf generated && rm -rf node_modules",
+    "winclean": "powershell -Command \"Remove-Item -Recurse -Force dist, generated, node_modules"
   },
   "author": "Raymond Lyon",
   "license": "ISC",

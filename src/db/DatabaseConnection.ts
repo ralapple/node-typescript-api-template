@@ -1,4 +1,4 @@
-import { PrismaClient } from '../../../generated/prisma';
+import { PrismaClient } from '../../generated/prisma';
 import { IDatabaseConnection } from './IDatabaseConnection';
 import { ILogger } from '../util/ILogger';
 
