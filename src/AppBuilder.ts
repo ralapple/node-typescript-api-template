@@ -14,6 +14,7 @@ import { UserController } from './controller/UserController';
 import { AuthMiddleware } from './middlewear/AuthMiddleware';
 import { AuthService } from './service/AuthService';
 import { LoggingMiddleware } from './middlewear/LoggingMiddleware';
+import { ErrorMiddleware } from './middlewear/ErrorMiddleware';
 
 
 
@@ -85,7 +86,7 @@ export class AppBuilder {
         rcUseContainer(Container);
         useExpressServer(this.server, {
             controllers: [UserController],
-            middlewares: [LoggingMiddleware, AuthMiddleware],
+            middlewares: [LoggingMiddleware, AuthMiddleware, ErrorMiddleware],
         });
         return this;
     }
