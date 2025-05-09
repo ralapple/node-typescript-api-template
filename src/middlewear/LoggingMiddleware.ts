@@ -3,6 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 import { Service } from 'typedi';
 import { ILogger, LoggerToken } from '../util/ILogger';
 import { Inject } from 'typedi';
+import { HttpRequestLog } from '../util/log/HttpRequestLog';
 
 /**
  * Class for logging requests through middleware.
@@ -23,7 +24,18 @@ export class LoggingMiddleware implements ExpressMiddlewareInterface {
         
         response.setHeader('X-Request-ID', requestId);
         (request as any).requestId = requestId;
-        this.logger.info(`Request [${requestId}] ${request.method} ${request.originalUrl} | IP: ${request.ip} | User-Agent: ${request.get('user-agent')} | Body: ${JSON.stringify(this.sanitizeBody(request.body))} | Query: ${JSON.stringify(request.query)}`);
+
+        // Generate log message
+        var requestLog = new HttpRequestLog(
+            requestId,
+            request.method,
+            request.originalUrl,
+            request.ip,
+            request.get('user-agent'),
+            JSON.stringify(this.sanitizeBody(request.body)),
+            JSON.stringify(request.query)
+        )
+        this.logger.info(requestLog.toString());
 
 
         const originalSend = response.send;
